@@ -6,6 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation. Nullable
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.isa.project2.data.CovidService
+import com.isa.project2.data.apiRequest
+import com.isa.project2.data.httpClient
+import com.isa.project2.util.dismissLoading
+import com.isa.project2.util.showLoading
+import com.isa.project2.util.tampilToast
+import kotlinx.android.synthetic.*
+import kotlinx.android.synthetic.main.fragment_covid.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CovidFragment : Fragment() {
 
@@ -23,5 +35,56 @@ class CovidFragment : Fragment() {
 
     override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        callApiGetCovidProvinsi()
+    }
+
+    private fun callApiGetCovidProvinsi() {
+        showLoading (context!!, swipeRefreshLayout)
+
+        val httpClient = httpClient ()
+        val apiRequest = apiRequest <CovidService>(httpClient)
+
+        val call = apiRequest.getUsers()
+        call.enqueue(object : Callback<List<CovidProvinsiItem>> {
+
+            override fun onFailure(call: Call<List<CovidProvinsiItem>>, t: Throwable) {
+                dismissLoading (swipeRefreshLayout)
+            }
+
+            override fun onResponse(call: Call<List<CovidProvinsiItem>>, response: Response<List<CovidProvinsiItem>>) {
+                dismissLoading (swipeRefreshLayout)
+
+                when {
+                    response.isSuccessful ->
+
+                        when {
+                            response.body()?.size != 0 ->
+
+                                tampilCovidProvinsi(response.body()!!)
+
+                            else -> {
+                                tampilToast (context!!, "Berhasil" )
+                            }
+                        }
+
+                    else -> {
+                        tampilToast (context!!, "Gagal" )
+                    }
+                }
+            }
+        })
+    }
+
+    private fun tampilCovidProvinsi(covidProvinsis: List<CovidProvinsiItem>) {
+        listCovidProvinsi.layoutManager = LinearLayoutManager(context)
+        listCovidProvinsi.adapter = CovidProvinsiAdapter(context!!, covidProvinsis) {
+            val covidProvinsi = it
+            tampilToast (context!!, covidProvinsi.attributes.provinsi)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        this.clearFindViewByIdCache ()
     }
 }
