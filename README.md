@@ -1,5 +1,5 @@
 # SMK CODING PROJECT 1
-![picture1](../../screen_shot/1.png)
+![picture1](screen_shot/1.png)
 
 ![picture2](/screen_shot/2.png)
 
