@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">Project 2</string>
+    <string name="app_name">COVID-19</string>
+    <string name="CuciTangan">Pastikan Tangan selalu dalam kondisi bersih dengan rutin cuci tangan</string>
+    <string name="Judul">Cara Mencegah Penularan Virus</string>
+    <string name="Masker">Hindari kontak langsung dengan orang yang sedang mengalami flu, dan kenakan masker ketika keluar rumah</string>
+    <string name="Batuk">Tutup mulut ketika batuk atau bersin</string>
+    <string name="Bersih">Jaga kebersihan rumah dan gunakan cairan desinfektan untuk membersihkannya secara teratur</string>
+    <string name="Makanan">Selalu membersihkan bahan makanan sebelum disantap. Buah dan sayur bisa dibersihkan dengan hidrogen peroksida arau cuka putih</string>
+    <string name="Dinstance">Hindari kerumunan dan jaga jarak minimal 1 meter dengan orang lain</string>
+    <string name="DampakJudul">Dampak Dari Covid-19</string>
+    <string name="EkonomiMenurun">Penurunan perekonomian Indonesia</string>
+    <string name="ImporBerhenti">Penghentian impor dari Tiongkok</string>
+    <string name="KeuanganDigital">Karena turunnya ekonomi negara China keuangan digital di Indonesia meningkat</string>
+    <string name="BarangNaikHarga">DIkarenakan barang barang keperluan rumah banyak dicari sehingga produksi barang menurun dan harga barang naik</string>
 </resources>

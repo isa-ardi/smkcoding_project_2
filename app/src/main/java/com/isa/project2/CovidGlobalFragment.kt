@@ -1,27 +1,29 @@
 package com.isa.project2
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation. Nullable
+import androidx.annotation.Nullable
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.isa.project2.data.CovidService
+import com.isa.project2.data.CovidGlobal
+import com.isa.project2.data.CovidIndo
 import com.isa.project2.data.apiRequest
 import com.isa.project2.data.httpClient
 import com.isa.project2.util.dismissLoading
 import com.isa.project2.util.showLoading
 import com.isa.project2.util.tampilToast
 import kotlinx.android.synthetic.*
-import kotlinx.android.synthetic.main.fragment_covid.*
-import kotlinx.android.synthetic.main.fragment_covid.view.*
+import kotlinx.android.synthetic.main.fragment_covid_global.*
+import kotlinx.android.synthetic.main.fragment_covid_indo.*
+import kotlinx.android.synthetic.main.fragment_covid_indo.swipeRefreshLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CovidFragment : Fragment() {
+open class CovidGlobalFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,28 +34,28 @@ class CovidFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_covid, container, false)
+        return inflater.inflate(R.layout.fragment_covid_global, container, false)
     }
 
     override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        callApiGetCovidProvinsi()
+        callApiGetCovidGlobal()
     }
 
-    private fun callApiGetCovidProvinsi() {
+    private fun callApiGetCovidGlobal() {
         showLoading (context!!, swipeRefreshLayout)
 
         val httpClient = httpClient ()
-        val apiRequest = apiRequest <CovidService>(httpClient)
+        val apiRequest = apiRequest <CovidGlobal>(httpClient)
 
         val call = apiRequest.getUsers()
-        call.enqueue(object : Callback<List<CovidProvinsiItem>> {
+        call.enqueue(object : Callback<List<CovidGlobalItem>> {
 
-            override fun onFailure(call: Call<List<CovidProvinsiItem>>, t: Throwable) {
+            override fun onFailure(call: Call<List<CovidGlobalItem>>, t: Throwable) {
                 dismissLoading (swipeRefreshLayout)
             }
 
-            override fun onResponse(call: Call<List<CovidProvinsiItem>>, response: Response<List<CovidProvinsiItem>>) {
+            override fun onResponse(call: Call<List<CovidGlobalItem>>, response: Response<List<CovidGlobalItem>>) {
                 dismissLoading (swipeRefreshLayout)
 
                 when {
@@ -62,10 +64,10 @@ class CovidFragment : Fragment() {
                         when {
                             response.body()?.size != 0 ->
 
-                                tampilCovidProvinsi(response.body()!!)
+                                tampilCovidGlobal(response.body()!!)
 
                             else -> {
-                                tampilToast (context!!, "Berhasil" )
+                                tampilToast(context!!,"Berhasil")
                             }
                         }
 
@@ -77,11 +79,11 @@ class CovidFragment : Fragment() {
         })
     }
 
-    private fun tampilCovidProvinsi(covidProvinsis: List<CovidProvinsiItem>) {
-        listCovidProvinsi.layoutManager = LinearLayoutManager(context)
-        listCovidProvinsi.adapter = CovidProvinsiAdapter(context!!, covidProvinsis) {
-            val covidProvinsi = it
-            tampilToast (context!!, covidProvinsi.attributes.provinsi)
+    private fun tampilCovidGlobal(covidGlobals: List<CovidGlobalItem>) {
+        listCovidGlobal.layoutManager = LinearLayoutManager(context)
+        listCovidGlobal.adapter =CovidGlobalAdapter(context!!, covidGlobals) {
+            val covidGlobal = it
+            tampilToast (context!!, covidGlobal.attributes.countryRegion)
         }
     }
 
