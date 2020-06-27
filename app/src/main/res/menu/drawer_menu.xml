@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/local"
+            android:title="Indonesia"
+            android:icon="@drawable/ic_local"/>
+        <item
+            android:id="@+id/province"
+            android:title="Province"
+            android:icon="@drawable/ic_province"/>
+        <item
+            android:id="@+id/global"
+            android:title="Global"
+            android:icon="@drawable/ic_global"/>
+    </group>
+
+</menu>

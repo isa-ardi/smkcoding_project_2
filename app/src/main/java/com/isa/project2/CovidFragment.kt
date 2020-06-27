@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.annotation. Nullable
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.isa.project2.data.CovidService
 import com.isa.project2.data.apiRequest
 import com.isa.project2.data.httpClient
@@ -16,12 +17,14 @@ import com.isa.project2.util.showLoading
 import com.isa.project2.util.tampilToast
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_covid.*
-import kotlinx.android.synthetic.main.fragment_covid.view.*
+import kotlinx.android.synthetic.main.fragment_covid.view.swipeRefreshLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class CovidFragment : Fragment() {
+
+//    lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +41,8 @@ class CovidFragment : Fragment() {
     override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         callApiGetCovidProvinsi()
+
+//        mSwipeRefreshLayout = view.swipeRefreshLayout
     }
 
     private fun callApiGetCovidProvinsi() {

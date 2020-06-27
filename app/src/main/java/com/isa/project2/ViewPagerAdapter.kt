@@ -13,8 +13,8 @@ class ViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapte
             0 -> { return CovidIndoFragment() }
             1 -> { return CovidFragment() }
             2 -> { return CovidGlobalFragment() }
-            3 -> { return PencegahanFragment() }
-            4 -> { return DampakFragment() }
+            3 -> { return DampakPencegahanFragment() }
+            4 -> { return ProfilFragment() }
             else -> {
                 return CovidFragment()
             }

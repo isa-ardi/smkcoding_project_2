@@ -8,6 +8,7 @@ import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.isa.project2.data.CovidIndo
 import com.isa.project2.data.apiRequest
 import com.isa.project2.data.httpClient
@@ -17,11 +18,14 @@ import com.isa.project2.util.tampilToast
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_covid_indo.*
 import kotlinx.android.synthetic.main.fragment_covid_indo.swipeRefreshLayout
+import kotlinx.android.synthetic.main.fragment_covid_indo.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 open class CovidIndoFragment : Fragment() {
+
+    lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +42,8 @@ open class CovidIndoFragment : Fragment() {
     override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         callApiGetCovidIndo()
+
+        mSwipeRefreshLayout = view.swipeRefreshLayout
     }
 
     private fun callApiGetCovidIndo() {
